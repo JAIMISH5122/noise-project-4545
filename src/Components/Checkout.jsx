@@ -11,8 +11,6 @@ import {
   FaCity,
   FaMapPin,
   FaMoneyBillWave,
-  FaUniversity,
-  FaCreditCard,
   FaWallet,
   FaTruck,
   FaShieldAlt,

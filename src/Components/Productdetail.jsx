@@ -12,103 +12,101 @@ export default function Productdetail() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    abc()
-  }, [category, id])
-
   const abc = async () => {
     const xyz = await axios.get(`http://localhost:3001/${category}/${id}`)
     setState(xyz.data)
   }
 
- function Addtocart() {
-  const loginUser = localStorage.getItem("user");
+  useEffect(() => {
+    abc()
+  }, [category, id, abc])
 
-  if (!loginUser) {
-    alert("Please Login First");
-    navigate("/login");
-    return;
+  function Addtocart() {
+    const loginUser = localStorage.getItem("user");
+
+    if (!loginUser) {
+      alert("Please Login First");
+      navigate("/login");
+      return;
+    }
+    navigate("/");
+    dispatch(myAction(state));
+    alert("Product Added to Cart");
   }
-  navigate("/");
-  dispatch(myAction(state));
-  alert("Product Added to Cart");
-}
 
-const handleBuyNow = () => {
-  const loginUser = localStorage.getItem("user");
+  const handleBuyNow = () => {
+    const loginUser = localStorage.getItem("user");
 
-  if (!loginUser) {
-    alert("Please Login First");
-    navigate("/login");
-    return;
-  }
-   dispatch(myAction(state));
-  navigate("/cart");
-};
+    if (!loginUser) {
+      alert("Please Login First");
+      navigate("/login");
+      return;
+    }
+    dispatch(myAction(state));
+    navigate("/cart");
+  };
 
-const getStars = (rating) => {
-  const fullStars = Math.floor(rating);
-  const emptyStars = 5 - fullStars;
+  const getStars = (rating) => {
+    const fullStars = Math.floor(rating);
+    const emptyStars = 5 - fullStars;
 
-  return "★".repeat(fullStars) + "☆".repeat(emptyStars);
-};
+    return "★".repeat(fullStars) + "☆".repeat(emptyStars);
+  };
 
-return (
-  <div className="product-container">
-    <div className="product-image">
-      <img src={state.image} alt={state.name} />
+  return (
+    <div className="product-container">
+      <div className="product-image">
+        <img src={state.image} alt={state.name} />
+      </div>
+
+      <div className="product-details">
+        <h1>{state.name}</h1>
+
+        <div className="rating">
+          {getStars(state.rating)} ({state.rating})
+        </div>
+
+        <h2 className="price">
+          ₹{state.price}
+        </h2>
+
+        <p className="offer">
+          Inclusive of all taxes
+        </p>
+
+        <p className="stock">
+          {state.stock ? "✔ In Stock" : "❌ Out of Stock"}
+        </p>
+
+        <hr />
+
+        <h5>Product Features</h5>
+
+        <ul>
+          <li>Premium Quality</li>
+          <li>1 Year Warranty</li>
+          <li>Fast Delivery</li>
+          <li>Easy Returns</li>
+        </ul>
+
+        <div className="btn-group-custom">
+          <button
+            className="cart-btn"
+            onClick={Addtocart}
+            disabled={!state.stock}
+          >
+            Add to Cart
+          </button>
+
+          <button
+            className="buy-btn"
+            onClick={handleBuyNow}
+            disabled={!state.stock}
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
     </div>
-
-    <div className="product-details">
-      <h1>{state.name}</h1>
-
-    
-
-  <div className="rating">
-  {getStars(state.rating)} ({state.rating})
-</div>
-
-      <h2 className="price">
-        ₹{state.price}
-      </h2>
-
-      <p className="offer">
-        Inclusive of all taxes
-      </p>
-
-     <p className="stock">
-  {state.stock ? "✔ In Stock" : "❌ Out of Stock"}
-</p>
-
-      <hr />
-
-      <h5>Product Features</h5>
-
-      <ul>
-        <li>Premium Quality</li>
-        <li>1 Year Warranty</li>
-        <li>Fast Delivery</li>
-        <li>Easy Returns</li>
-      </ul>
-
-<div className="btn-group-custom">
- <button
-  className="cart-btn"
-  onClick={Addtocart}
-  disabled={!state.stock}
->
-  Add to Cart
-</button>
-
-<button
-  className="buy-btn"
-  onClick={handleBuyNow}
-  disabled={!state.stock}
->
-  Buy Now
-</button>
-</div>
-    </div>
-  </div>
-);
+  );
 }
