@@ -1,0 +1,30 @@
+.banner-section {
+  width: 95%;
+  margin: 30px auto;
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  display: block;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .banner-img {
+    border-radius: 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .banner-section {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .banner-img {
+    border-radius: 10px;
+  }
+}
