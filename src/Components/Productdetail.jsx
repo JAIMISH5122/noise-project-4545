@@ -12,14 +12,14 @@ export default function Productdetail() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
   const abc = async () => {
     const xyz = await axios.get(`http://localhost:3001/${category}/${id}`)
     setState(xyz.data)
   }
 
-  useEffect(() => {
-    abc()
-  }, [category, id, abc])
+  abc()
+}, [category, id])
 
   function Addtocart() {
     const loginUser = localStorage.getItem("user");
